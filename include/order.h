@@ -1,23 +1,25 @@
 #ifndef ORDER_H
 #define ORDER_H
 
-#include "types.h"
+#include "types.h" //Depend on the bsic types we defined in types.h
 
-typedef enum {
-    SIDE_BUY,
-    SIDE_SELL
-} Side;
-
-typedef struct Order {
-    order_id_t id;
-    price_t price;
-    quantity_t quantity;
-    Side side;
-    int64_t timestamp;
-    struct Order *next;
+typedef struct {
+    OrderID    order_id;
+    Side       side;
+    Quanitity  initial_quantity;
+    Quantity   remaining_quantity;
+    Timestamp  entry_time;
+    //we will add User/Client ID and Instrument ID later on
 } Order;
 
-Order *create_order(order_id_t id, price_t price, quantity_t quantity, Side side);
-void destroy_order(Order *order);
+
+//create a new order
+Order create_new_order(OrderID id, Side market_side, Price limit_price, Quantity size);
+
+//update the remaining quantity after a trade
+void update_order_fill(Order *the_order, Quantity filled_amount);
+
+//check if order is fully executed
+int is_order_fully_executed(const Order *the_order);
 
 #endif /* ORDER_H */
