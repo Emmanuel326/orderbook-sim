@@ -1,22 +1,37 @@
-#include  <stdint.h> //This is essential for fixed width integers
-#include <stdbiil.h>
+//we define the types and contract of data structures here 
+#ifndef TYPES_H
+#define TYPES_H
 
 
+#include <stdint.h>
 
-//we dfine finamcial primitives
-//ysed for price. even if we treta itas a simple int
-//using 64-bit now future-proofs for fixed-points math eg 100.12 which becomes 1001200).
+//unique identifier for each order received by the system.
+typedef uint64_t OrderID;
 
-typedef int64_t price_t;
+//it is a good thing to handle price as integer(eg in cents or fixed-point) to void
+//floting-point arithmetic issues in finance
+typedef int64_t Price;
 
-//used for order and trade quantities.
-typedef inte64_t  quantity_t;
+//Timestamp of when an order/event occured(eg nanosecond since epoch)
+typedef uint64_t Timestamp;
 
-//---  unique identifiers---
 
-//we need unique identifires
-typedef uint64_t order_id_t;
+//we represent the side of the market for an order.
+typedef enum
+{
+	SIDE_BUY,
+	SIDE_SELL
+}Side;
 
-//unique ID assigmed to a specific trade/execution event.
-typedef uint64_t trade_id_t;
+//Represent a state of an order
+typedef enum
+{
+	STATUS_NEW,
+	STATUS_PARTIALLY_FILLED,
+	STATUS_FILLED,
+	STATUS_CANCELLED
+}OrderStatus;
+
+#endif //TYPES_H
+
 

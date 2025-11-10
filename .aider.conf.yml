@@ -1,4 +1,10 @@
-auto-commit: false
+# Keep Git tracking for context, but disable public attribution and auto commits
 git: true
+auto-commits: false
+attribute-author: false
+attribute-committer: false
+attribute-co-authored-by: false
 
+# Use Gemini 2.5 Pro model
+model: gemini/gemini-2.5-pro
 
